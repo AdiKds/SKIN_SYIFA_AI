@@ -101,65 +101,34 @@
             <!-- SVG KUCING GENIT DENGAN ORBIT HOLOGRAFIK -->
             <div class="mb-6 relative w-[200px] h-[200px] flex items-center justify-center drop-shadow-[0_0_30px_rgba(244,63,94,0.65)]">
                 <svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-                    <!-- Lingkaran Orbit Luar (Searah Jarum Jam) -->
                     <circle cx="50" cy="55" r="46" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="8 4 2 4" class="orbit-ring-1" opacity="0.6"/>
-                    <!-- Lingkaran Orbit Dalam (Berlawanan Jarum Jam) -->
                     <circle cx="50" cy="55" r="43" fill="none" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="15 6" class="orbit-ring-2" opacity="0.7"/>
-                    <!-- Titik Orbit Node -->
-                    <g class="orbit-ring-1">
-                        <circle cx="50" cy="9" r="2.5" fill="#38bdf8" />
-                    </g>
-                    <g class="orbit-ring-2">
-                        <circle cx="7" cy="55" r="2" fill="#ffffff" />
-                    </g>
+                    <g class="orbit-ring-1"><circle cx="50" cy="9" r="2.5" fill="#38bdf8" /></g>
+                    <g class="orbit-ring-2"><circle cx="7" cy="55" r="2" fill="#ffffff" /></g>
 
-                    <!-- Telinga Kiri Bergerak -->
-                    <g class="ear-left-anim">
-                        <polygon points="20,45 3,5 42,25" fill="#f8fafc" stroke="#f43f5e" stroke-width="1.5"/>
-                        <polygon points="22,38 10,12 37,26" fill="#fbcfe8"/>
-                    </g>
-                    <!-- Telinga Kanan Bergerak -->
-                    <g class="ear-right-anim">
-                        <polygon points="80,45 97,5 58,25" fill="#f8fafc" stroke="#f43f5e" stroke-width="1.5"/>
-                        <polygon points="78,38 90,12 63,26" fill="#fbcfe8"/>
-                    </g>
-                    <!-- Kepala Utama Kucing -->
+                    <g class="ear-left-anim"><polygon points="20,45 3,5 42,25" fill="#f8fafc" stroke="#f43f5e" stroke-width="1.5"/><polygon points="22,38 10,12 37,26" fill="#fbcfe8"/></g>
+                    <g class="ear-right-anim"><polygon points="80,45 97,5 58,25" fill="#f8fafc" stroke="#f43f5e" stroke-width="1.5"/><polygon points="78,38 90,12 63,26" fill="#fbcfe8"/></g>
                     <circle cx="50" cy="55" r="38" fill="#f8fafc" stroke="#38bdf8" stroke-width="2"/>
-                    <!-- Pita Cyberpunk / Aksesori Kepala -->
                     <path d="M 23 37 Q 50 22 77 37" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
-                    <circle cx="50" cy="27" r="7" fill="#f43f5e" stroke="#ffffff" stroke-width="1"/>
-                    <circle cx="50" cy="27" r="2" fill="#ffffff"/>
+                    <circle cx="50" cy="27" r="7" fill="#f43f5e" stroke="#ffffff" stroke-width="1"/><circle cx="50" cy="27" r="2" fill="#ffffff"/>
 
-                    <!-- Mata Kiri Berkedip Bergantian -->
                     <g class="eye-left-anim">
-                        <ellipse cx="35" cy="52" rx="5.5" ry="7.5" fill="#020617"/>
-                        <circle cx="33" cy="49" r="2.2" fill="#ffffff"/>
-                        <!-- Bulu Mata Genit Cantik -->
+                        <ellipse cx="35" cy="52" rx="5.5" ry="7.5" fill="#020617"/><circle cx="33" cy="49" r="2.2" fill="#ffffff"/>
                         <path d="M 27 46 Q 30 41 36 43" fill="none" stroke="#020617" stroke-width="1.5" stroke-linecap="round"/>
                         <line x1="26" y1="45" x2="21" y2="41" stroke="#020617" stroke-width="1.2" stroke-linecap="round"/>
                     </g>
-                    <!-- Mata Kanan Berkedip Bergantian -->
                     <g class="eye-right-anim">
-                        <ellipse cx="65" cy="52" rx="5.5" ry="7.5" fill="#020617"/>
-                        <circle cx="63" cy="49" r="2.2" fill="#ffffff"/>
-                        <!-- Bulu Mata Genit Cantik -->
+                        <ellipse cx="65" cy="52" rx="5.5" ry="7.5" fill="#020617"/><circle cx="63" cy="49" r="2.2" fill="#ffffff"/>
                         <path d="M 73 46 Q 70 41 64 43" fill="none" stroke="#020617" stroke-width="1.5" stroke-linecap="round"/>
                         <line x1="74" y1="45" x2="79" y2="41" stroke="#020617" stroke-width="1.2" stroke-linecap="round"/>
                     </g>
 
-                    <!-- Pipi Merona Cantik -->
-                    <ellipse cx="24" cy="62" rx="7" ry="4" fill="#f472b6" opacity="0.7"/>
-                    <ellipse cx="76" cy="62" rx="7" ry="4" fill="#f472b6" opacity="0.7"/>
-                    <!-- Hidung Kecil Pink -->
+                    <ellipse cx="24" cy="62" rx="7" ry="4" fill="#f472b6" opacity="0.7"/><ellipse cx="76" cy="62" rx="7" ry="4" fill="#f472b6" opacity="0.7"/>
                     <polygon points="47,60 53,60 50,63" fill="#f472b6"/>
-                    
-                    <!-- Senyuman Manis dengan Lidah Menjulur -->
                     <path d="M 39 64 Q 45 69 50 65 Q 55 69 61 64" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round"/>
-                    <!-- Lidah Menjulur Cantik Genit -->
                     <path d="M 46 66 Q 50 75 54 66 Z" fill="#f43f5e" stroke="#be185d" stroke-width="0.7"/>
                     <line x1="50" y1="66" x2="50" y2="71" stroke="#be185d" stroke-width="0.5"/>
 
-                    <!-- Kumis Sensitif Kucing -->
                     <line x1="16" y1="59" x2="26" y2="61" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
                     <line x1="13" y1="64" x2="25" y2="64" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
                     <line x1="84" y1="59" x2="74" y2="61" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
@@ -361,6 +330,10 @@
                                     <i class="fa-solid fa-globe text-amber-500 text-sm md:text-2xl w-5 md:w-8 text-center shrink-0"></i>
                                     <div class="min-w-0"><span class="block text-[8px] text-slate-500 uppercase tracking-wider">Blog & Portofolio</span><a href="https://newbieonline7.blogspot.com/" target="_blank" class="font-bold text-amber-400 hover:underline block truncate text-[11px] md:text-sm">newbieonline7.blogspot.com</a></div>
                                 </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-brands fa-whatsapp text-emerald-400 text-sm md:text-2xl w-5 md:w-8 text-center shrink-0"></i>
+                                    <div><span class="block text-[8px] text-slate-500 uppercase tracking-wider">Kontak WhatsApp</span><a href="https://wa.me/6282231036047" target="_blank" class="font-bold text-emerald-400 hover:underline text-[11px] md:text-sm">082231036047</a></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -452,7 +425,7 @@
                         <!-- Kolom Checklist Gejala ABCDE Kriteria Klinis -->
                         <div class="bg-slate-900 p-3 rounded-xl border border-slate-700 lg:col-span-2 font-mono text-[10px] md:text-xs flex flex-col">
                             <h3 class="text-rose-400 font-bold uppercase mb-1 text-[11px] md:text-xs"><i class="fa-solid fa-square-poll-horizontal"></i> Kriteria Manifestasi Fisik Lesi</h3>
-                            <p class="text-slate-400 mb-2 border-l-2 border-rose-500 Grandma pl-2 text-[9px] md:text-xs">Gunakan kriteria visual dermatologi untuk memperkuat akurasi:</p>
+                            <p class="text-slate-400 mb-2 border-l-2 border-rose-500 pl-2 text-[9px] md:text-xs">Gunakan kriteria visual dermatologi untuk memperkuat akurasi:</p>
                             <div id="symptoms-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2 overflow-y-auto hide-scrollbar max-h-56 lg:max-h-none"></div>
                         </div>
                     </div>
@@ -638,7 +611,7 @@
             { id: 'P01', name: 'Melanoma (MEL)', symptoms: ['G01', 'G02', 'G03', 'G04', 'G05'], desc: 'Kanker kulit paling agresif dan berbahaya yang berkembang dari melanosit (sel pigmen). Memiliki risiko metastasis tinggi jika lambat ditangani.', solusi: 'Segera lakukan eksisi bedah oleh dokter spesialis bedah onkologi. Hindari paparan sinar UV berlebih dan lakukan biopsi jaringan.' },
             { id: 'P02', name: 'Basal Cell Carcinoma (BCC)', symptoms: ['G06', 'G07'], desc: 'Jenis kanker kulit non-melanoma paling umum. Tumbuh lambat pada area terpapar matahari, jarang menyebar tetapi merusak jaringan lokal.', solusi: 'Rekomendasi bedah mikrografik Mohs atau terapi kuretase. Gunakan tabir surya berspektrum luas setiap hari.' },
             { id: 'P03', name: 'Squamous Cell Carcinoma (SCC)', symptoms: ['G07', 'G08'], desc: 'Kanker kulit non-melanoma yang berasal dari sel skuamosa epidermis. Dapat berkembang dari keratosis aktinik jika dibiarkan.', solusi: 'Tindakan eksisi bedah, kriobedah (pembekuan), atau terapi radiasi superfisial tergantung tingkat penetrasi lesi.' },
-            { id: 'P04', name: 'Benign Keratosis-like Lesions (BKL) / Nevus Melanositik', symptoms: ['G04'], desc: 'Pertumbuhan jaringan kulit jinak (non-kanker) seperti tahi lalat normal atau pertumbuhan kutil seboroik karena faktor degenerasi usia.', solusi: 'Secara medis tidak memerlukan terapi agresif kecuali untuk estetika atau jika timbul iritasi mekanis pakaian.' }
+            { id: 'P04', name: 'Benign Keratosis-like Lesions (BKL) / Nevus Melanositik', symptoms: ['G04'], desc: 'Pertumbuhan jaringan kulit jinak (non-kanker) seperti tahi lalat normal atau pertumbuhan kutil seboroik karena faktor degenerasi usia.', solusi: 'Secara medis tidak memerlukan terapi agresif kecuali untuk estetika atau jika timbul ikitasi mekanis pakaian.' }
         ];
 
         let patientDB = JSON.parse(localStorage.getItem('SKIN_SYIFA_DB')) || [];
@@ -646,6 +619,8 @@
         let isScreensaverActive = false;
         let systemIdleTimeSeconds = 0;
         let mobileTooltipTimer = null;
+
+        const dayNames = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
 
         document.addEventListener("DOMContentLoaded", () => {
             renderSymptoms();
@@ -670,10 +645,12 @@
             document.getElementById('dash-total-diag').innerText = totalRiwayat;
         }
 
+        /* FORMAT SINKRONISASI TANGGAL DISERTAI NAMA HARI */
         function getFormattedDate(dateStr) {
             if(!dateStr) return "<span class='text-slate-500 italic text-[10px]'>Belum diperiksa</span>";
             const d = new Date(dateStr);
-            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} <span class='text-[10px] text-slate-400 block'>${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')} WIB</span>`;
+            const namaHari = dayNames[d.getDay()];
+            return `${namaHari}, ${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} <span class='text-[10px] text-slate-400 block'>${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')} WIB</span>`;
         }
 
         function savePatient() {
@@ -758,10 +735,12 @@
                     container.innerHTML = '<p class="text-slate-500 italic text-center mt-6">Belum ada riwayat klasifikasi.</p>';
                 } else {
                     p.riwayat.slice().reverse().forEach((r) => {
+                        const dateObj = new Date(r.tgl);
+                        const hariLog = dayNames[dateObj.getDay()];
                         container.innerHTML += `
                             <div class="bg-slate-900 border border-amber-500/30 p-3 rounded-xl shadow-sm font-mono text-xs">
                                 <div class="flex justify-between items-start border-b border-slate-700 pb-2 mb-2">
-                                    <span class="text-amber-400 font-bold"><i class="fa-solid fa-calendar-check mr-1"></i> ${new Date(r.tgl).toLocaleString('id-ID')}</span>
+                                    <span class="text-amber-400 font-bold"><i class="fa-solid fa-calendar-check mr-1"></i> ${hariLog}, ${dateObj.toLocaleString('id-ID')}</span>
                                     <span class="bg-rose-500/20 text-rose-400 border border-rose-500 px-2 py-0.5 rounded font-black">Prob: ${r.persentase}%</span>
                                 </div>
                                 <h4 class="text-sky-400 font-black uppercase mb-2">${r.penyakit}</h4>
@@ -926,9 +905,13 @@
             let waInput = patientDB[pIndex].wa || "";
             if (waInput.startsWith('0')) { waInput = '62' + waInput.substring(1); }
 
+            const currentD = new Date();
+            const hariIni = dayNames[currentD.getDay()];
+
             let waText = `*SKIN SYIFA AI: INTEGRATED REPORT KANKER KULIT*\n\n`;
             waText += `*ID Pasien:* ${patientDB[pIndex].id}\n`;
             waText += `*Nama:* ${patientDB[pIndex].nama}\n`;
+            waText += `*Waktu Pemeriksaan:* ${hariIni}, ${currentD.toLocaleDateString('id-ID')} ${currentD.toLocaleTimeString('id-ID')} WIB\n`;
             waText += `*Hasil Klasifikasi:* ${currentDiagnosisResult.name} (Tingkat Keyakinan: ${currentDiagnosisResult.certainty}%)\n\n`;
             waText += `*Saran Medis:*\n${currentDiagnosisResult.solusi}\n\n`;
             waText += `_Segera lakukan pemeriksaan histopatologi laboratorium untuk penegakan diagnosis final._`;
@@ -1028,7 +1011,6 @@
             }
         }
 
-        /* --- IMMUNE & RESPONSIVE HOLOGRAPHIC TOOLTIP CORE LOGIC --- */
         function setupHolographicTooltips() {
             const tipBox = document.getElementById("holoTooltipBox");
             
@@ -1089,18 +1071,22 @@
             });
         }
 
+        /* PERBAIKAN REALSINKRONISASI WAKTU UTAMA DASBOR (MENAMPILKAN HARI) */
         function runTimeSynchronization() {
             let tzName = Intl.DateTimeFormat().resolvedOptions().timeZone.split('/').pop().toUpperCase() || "WIB";
             document.getElementById('lbl-timezone').innerText = tzName;
             document.getElementById('scTimezoneDisplay').innerText = tzName;
             setInterval(() => {
                 const current = new Date();
-                const dayStr = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+                const hariIni = dayNames[current.getDay()];
+                const dayStr = `${hariIni}, ${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
                 const timeStr = current.toTimeString().split(' ')[0];
+                
                 document.getElementById('lbl-real-day').innerText = dayStr;
                 document.getElementById('lbl-real-clock').innerText = timeStr;
                 document.getElementById('bot-large-time').innerText = timeStr;
                 document.getElementById('bot-large-day').innerText = dayStr;
+                
                 if (isScreensaverActive) {
                     document.getElementById('scClockDisplay').innerText = timeStr;
                     document.getElementById('scDateDisplay').innerText = dayStr;
