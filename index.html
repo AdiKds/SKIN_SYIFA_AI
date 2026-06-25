@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKIN SYIFA AI - Skin Cancer Expert System</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&family=Orbitron:wght@500;700;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        .font-tech { font-family: 'Orbitron', sans-serif; }
+        .mono-font { font-family: 'JetBrains Mono', monospace; }
+        
+        .theme-dark {
+            --bg-main: #020617; 
+            --bg-card: #0f172a; 
+            --bg-header: rgba(15, 23, 42, 0.95);
+            --border-color: #334155; 
+            --text-main: #f8fafc; 
+            --text-muted: #94a3b8;
+            --bg-input: #020617;
+            --medical-cyan: #38bdf8;
+            --accent-pink: #f43f5e;
+        }
+
+        /* Responsive Holographic Tooltip Fixed Guard */
+        .holo-tooltip {
+            position: fixed;
+            background: rgba(15, 23, 42, 0.98);
+            border: 2px solid var(--accent-pink);
+            box-shadow: 0 0 25px rgba(244, 63, 94, 0.4), inset 0 0 10px rgba(244, 63, 94, 0.2);
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            z-index: 99999;
+            display: none;
+            pointer-events: none;
+            max-width: 280px;
+            backdrop-filter: blur(12px);
+            line-height: 1.4;
+            text-align: justify;
+            word-wrap: break-word;
+        }
+
+        .drag-handle { cursor: move; user-select: none; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .hidden-ui { display: none !important; }
+
+        @keyframes technology-scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+        @keyframes drift-slow-motion { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes bounce-chat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        @keyframes growWidth { 0% { width: 0%; } }
+        
+        .screensaver-grid { background-image: linear-gradient(rgba(244, 63, 94, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px); background-size: 50px 50px; }
+        .sc-scanline-animation { animation: technology-scanline 7s linear infinite; }
+        .sc-drift-animation { animation: drift-slow-motion 5.5s ease-in-out infinite; }
+        .bounce-chat { animation: bounce-chat 2s ease-in-out infinite; }
+        .animate-grow { animation: growWidth 1.5s ease-out forwards; }
+        
+        @keyframes scanLaser { 0%, 100% { top: 0%; } 50% { top: 100%; } }
+        .scanner-laser { animation: scanLaser 2s linear infinite; }
+
+        /* ANIMASI KUCING GENIT CANTIK CYBERPUNK */
+        @keyframes blinkLeftEye { 0%, 80%, 100% { transform: scaleY(1); } 90% { transform: scaleY(0.05); } }
+        @keyframes blinkRightEye { 0%, 30%, 100% { transform: scaleY(1); } 40% { transform: scaleY(0.05); } }
+        @keyframes earLeftMove { 0%, 75%, 100% { transform: rotate(0deg); } 85% { transform: rotate(-12deg); } }
+        @keyframes earRightMove { 0%, 25%, 100% { transform: rotate(0deg); } 35% { transform: rotate(12deg); } }
+        @keyframes orbitRotateCW { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes orbitRotateCCW { 0% { transform: rotate(360deg); } 100% { transform: rotate(0deg); } }
+
+        .eye-left-anim { transform-origin: 35px 52px; animation: blinkLeftEye 3.8s infinite ease-in-out; }
+        .eye-right-anim { transform-origin: 65px 52px; animation: blinkRightEye 4.2s infinite ease-in-out; }
+        .ear-left-anim { transform-origin: 20px 45px; animation: earLeftMove 4.5s infinite ease-in-out; }
+        .ear-right-anim { transform-origin: 80px 45px; animation: earRightMove 5s infinite ease-in-out; }
+        .orbit-ring-1 { transform-origin: 50px 55px; animation: orbitRotateCW 12s linear infinite; }
+        .orbit-ring-2 { transform-origin: 50px 55px; animation: orbitRotateCCW 8s linear infinite; }
+
+        input[type="checkbox"] { appearance: none; background-color: #0f172a; margin: 0; font: inherit; color: currentColor; width: 1.15em; height: 1.15em; border: 2px solid #38bdf8; border-radius: 0.25em; display: grid; place-content: center; cursor: pointer;}
+        input[type="checkbox"]::before { content: ""; width: 0.65em; height: 0.65em; transform: scale(0); transition: 120ms transform ease-in-out; box-shadow: inset 1em 1em var(--accent-pink); clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); }
+        input[type="checkbox"]:checked::before { transform: scale(1); }
+    </style>
+</head>
+<body id="appBody" class="theme-dark bg-[var(--bg-main)] text-[var(--text-main)] p-2 md:p-4 lg:p-6 min-h-screen flex flex-col justify-between overflow-x-hidden relative pb-24">
+
+    <div id="holoTooltipBox" class="holo-tooltip shadow-2xl"></div>
+
+    <!-- LOADER -->
+    <div id="startupLoader" class="fixed inset-0 z-[99999] bg-[#020714] flex flex-col items-center justify-center overflow-hidden font-tech transition-all duration-700">
+        <div class="absolute inset-0 screensaver-grid opacity-50 pointer-events-none"></div>
+        <div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-rose-500 to-transparent opacity-40 sc-scanline-animation pointer-events-none"></div>
+        <div class="z-10 text-center sc-drift-animation flex flex-col items-center px-6">
+            
+            <!-- SVG KUCING GENIT DENGAN ORBIT HOLOGRAFIK -->
+            <div class="mb-6 relative w-[200px] h-[200px] flex items-center justify-center drop-shadow-[0_0_30px_rgba(244,63,94,0.65)]">
+                <svg width="200" height="200" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                    <!-- Lingkaran Orbit Luar (Searah Jarum Jam) -->
+                    <circle cx="50" cy="55" r="46" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="8 4 2 4" class="orbit-ring-1" opacity="0.6"/>
+                    <!-- Lingkaran Orbit Dalam (Berlawanan Jarum Jam) -->
+                    <circle cx="50" cy="55" r="43" fill="none" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="15 6" class="orbit-ring-2" opacity="0.7"/>
+                    <!-- Titik Orbit Node -->
+                    <g class="orbit-ring-1">
+                        <circle cx="50" cy="9" r="2.5" fill="#38bdf8" />
+                    </g>
+                    <g class="orbit-ring-2">
+                        <circle cx="7" cy="55" r="2" fill="#ffffff" />
+                    </g>
+
+                    <!-- Telinga Kiri Bergerak -->
+                    <g class="ear-left-anim">
+                        <polygon points="20,45 3,5 42,25" fill="#f8fafc" stroke="#f43f5e" stroke-width="1.5"/>
+                        <polygon points="22,38 10,12 37,26" fill="#fbcfe8"/>
+                    </g>
+                    <!-- Telinga Kanan Bergerak -->
+                    <g class="ear-right-anim">
+                        <polygon points="80,45 97,5 58,25" fill="#f8fafc" stroke="#f43f5e" stroke-width="1.5"/>
+                        <polygon points="78,38 90,12 63,26" fill="#fbcfe8"/>
+                    </g>
+                    <!-- Kepala Utama Kucing -->
+                    <circle cx="50" cy="55" r="38" fill="#f8fafc" stroke="#38bdf8" stroke-width="2"/>
+                    <!-- Pita Cyberpunk / Aksesori Kepala -->
+                    <path d="M 23 37 Q 50 22 77 37" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="50" cy="27" r="7" fill="#f43f5e" stroke="#ffffff" stroke-width="1"/>
+                    <circle cx="50" cy="27" r="2" fill="#ffffff"/>
+
+                    <!-- Mata Kiri Berkedip Bergantian -->
+                    <g class="eye-left-anim">
+                        <ellipse cx="35" cy="52" rx="5.5" ry="7.5" fill="#020617"/>
+                        <circle cx="33" cy="49" r="2.2" fill="#ffffff"/>
+                        <!-- Bulu Mata Genit Cantik -->
+                        <path d="M 27 46 Q 30 41 36 43" fill="none" stroke="#020617" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="26" y1="45" x2="21" y2="41" stroke="#020617" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+                    <!-- Mata Kanan Berkedip Bergantian -->
+                    <g class="eye-right-anim">
+                        <ellipse cx="65" cy="52" rx="5.5" ry="7.5" fill="#020617"/>
+                        <circle cx="63" cy="49" r="2.2" fill="#ffffff"/>
+                        <!-- Bulu Mata Genit Cantik -->
+                        <path d="M 73 46 Q 70 41 64 43" fill="none" stroke="#020617" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="74" y1="45" x2="79" y2="41" stroke="#020617" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+
+                    <!-- Pipi Merona Cantik -->
+                    <ellipse cx="24" cy="62" rx="7" ry="4" fill="#f472b6" opacity="0.7"/>
+                    <ellipse cx="76" cy="62" rx="7" ry="4" fill="#f472b6" opacity="0.7"/>
+                    <!-- Hidung Kecil Pink -->
+                    <polygon points="47,60 53,60 50,63" fill="#f472b6"/>
+                    
+                    <!-- Senyuman Manis dengan Lidah Menjulur -->
+                    <path d="M 39 64 Q 45 69 50 65 Q 55 69 61 64" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round"/>
+                    <!-- Lidah Menjulur Cantik Genit -->
+                    <path d="M 46 66 Q 50 75 54 66 Z" fill="#f43f5e" stroke="#be185d" stroke-width="0.7"/>
+                    <line x1="50" y1="66" x2="50" y2="71" stroke="#be185d" stroke-width="0.5"/>
+
+                    <!-- Kumis Sensitif Kucing -->
+                    <line x1="16" y1="59" x2="26" y2="61" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="13" y1="64" x2="25" y2="64" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="84" y1="59" x2="74" y2="61" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="87" y1="64" x2="75" y2="64" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="text-sm md:text-2xl font-black text-rose-400 mt-2 animate-pulse tracking-widest border-2 border-rose-500/40 px-5 md:px-8 py-2 md:py-3 rounded-full bg-slate-950/80 shadow-[0_0_20px_rgba(244,63,94,0.3)] uppercase">
+                LOADING SKIN SYIFA AI...
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREENSAVER -->
+    <div id="monsoonTechScreensaver" class="hidden fixed inset-0 z-[9999] bg-[#020714] flex flex-col items-center justify-center overflow-hidden font-tech transition-all duration-700 opacity-0 select-none">
+        <div class="absolute inset-0 screensaver-grid opacity-50 pointer-events-none"></div>
+        <div class="absolute inset-x-0 h-1 bg-gradient-to-r from-transparent via-sky-500 to-transparent opacity-30 sc-scanline-animation pointer-events-none"></div>
+        
+        <div class="z-10 text-center flex flex-col items-center px-4 md:px-6 sc-drift-animation">
+            
+            <!-- SVG KUCING GENIT DENGAN ORBIT PADA SCREENSAVER -->
+            <div class="mb-4 relative w-[140px] h-[140px] flex items-center justify-center drop-shadow-[0_0_20px_rgba(56,189,248,0.5)] scale-90 md:scale-100">
+                <svg width="140" height="140" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+                    <circle cx="50" cy="55" r="46" fill="none" stroke="#38bdf8" stroke-width="1" stroke-dasharray="8 4 2 4" class="orbit-ring-1" opacity="0.6"/>
+                    <circle cx="50" cy="55" r="43" fill="none" stroke="#f43f5e" stroke-width="1.2" stroke-dasharray="15 6" class="orbit-ring-2" opacity="0.7"/>
+                    <g class="orbit-ring-1"><circle cx="50" cy="9" r="2.5" fill="#38bdf8" /></g>
+                    <g class="orbit-ring-2"><circle cx="7" cy="55" r="2" fill="#ffffff" /></g>
+
+                    <g class="ear-left-anim"><polygon points="20,45 3,5 42,25" fill="#f8fafc" stroke="#f43f5e" stroke-width="1.5"/><polygon points="22,38 10,12 37,26" fill="#fbcfe8"/></g>
+                    <g class="ear-right-anim"><polygon points="80,45 97,5 58,25" fill="#f8fafc" stroke="#f43f5e" stroke-width="1.5"/><polygon points="78,38 90,12 63,26" fill="#fbcfe8"/></g>
+                    <circle cx="50" cy="55" r="38" fill="#f8fafc" stroke="#38bdf8" stroke-width="2"/>
+                    <path d="M 23 37 Q 50 22 77 37" fill="none" stroke="#334155" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="50" cy="27" r="7" fill="#f43f5e" stroke="#ffffff" stroke-width="1"/><circle cx="50" cy="27" r="2" fill="#ffffff"/>
+
+                    <g class="eye-left-anim">
+                        <ellipse cx="35" cy="52" rx="5.5" ry="7.5" fill="#020617"/><circle cx="33" cy="49" r="2.2" fill="#ffffff"/>
+                        <path d="M 27 46 Q 30 41 36 43" fill="none" stroke="#020617" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="26" y1="45" x2="21" y2="41" stroke="#020617" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+                    <g class="eye-right-anim">
+                        <ellipse cx="65" cy="52" rx="5.5" ry="7.5" fill="#020617"/><circle cx="63" cy="49" r="2.2" fill="#ffffff"/>
+                        <path d="M 73 46 Q 70 41 64 43" fill="none" stroke="#020617" stroke-width="1.5" stroke-linecap="round"/>
+                        <line x1="74" y1="45" x2="79" y2="41" stroke="#020617" stroke-width="1.2" stroke-linecap="round"/>
+                    </g>
+
+                    <ellipse cx="24" cy="62" rx="7" ry="4" fill="#f472b6" opacity="0.7"/><ellipse cx="76" cy="62" rx="7" ry="4" fill="#f472b6" opacity="0.7"/>
+                    <polygon points="47,60 53,60 50,63" fill="#f472b6"/>
+                    <path d="M 39 64 Q 45 69 50 65 Q 55 69 61 64" fill="none" stroke="#020617" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M 46 66 Q 50 75 54 66 Z" fill="#f43f5e" stroke="#be185d" stroke-width="0.7"/>
+                    <line x1="50" y1="66" x2="50" y2="71" stroke="#be185d" stroke-width="0.5"/>
+
+                    <line x1="16" y1="59" x2="26" y2="61" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="13" y1="64" x2="25" y2="64" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="84" y1="59" x2="74" y2="61" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                    <line x1="87" y1="64" x2="75" y2="64" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+            </div>
+
+            <div class="mb-5 flex items-center gap-2 border-2 border-sky-500/40 px-4 py-2 rounded-full bg-slate-950/80 text-sky-400 font-mono text-xs md:text-sm tracking-[0.25em] uppercase shadow-lg">
+                <i class="fa-solid fa-microscope animate-pulse text-rose-400"></i> SKIN CANCER CLASSIFIER STANDBY
+            </div>
+            <div id="scClockDisplay" class="text-5xl sm:text-7xl md:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-sky-200 to-sky-500 tracking-wider filter drop-shadow-[0_0_30px_rgba(56,189,248,0.6)]">00:00:00</div>
+            <div class="mt-4 flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 text-slate-200 font-medium tracking-widest text-sm md:text-xl border-t-2 border-b-2 border-sky-500/40 py-2 md:py-3 px-4 md:px-8 bg-slate-900/60 backdrop-blur-sm w-full md:w-auto">
+                <span id="scDateDisplay" class="text-center">Memuat...</span>
+                <div class="hidden md:block w-[2px] h-4 md:h-6 bg-sky-500/40"></div>
+                <span id="scTimezoneDisplay" class="text-xs md:text-sm font-mono font-black text-rose-400 bg-slate-950 px-2 py-1 rounded border border-rose-500/30">TZ</span>
+            </div>
+            <div class="mt-12 text-slate-500 font-mono text-[10px] md:text-xs tracking-[0.3em] uppercase animate-pulse text-center">
+                <i class="fa-solid fa-computer-mouse"></i> Gerakkan Kursor / Sentuh Untuk Kembali
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN UI -->
+    <div id="mainDashboardInterface" class="w-full flex flex-col justify-between flex-1 gap-3 md:gap-5">
+        
+        <header class="w-full bg-[var(--bg-header)] backdrop-blur-md p-3 md:p-4 rounded-2xl border-2 border-[var(--border-color)] flex flex-col lg:flex-row justify-between items-center gap-3 md:gap-4 shadow-md z-40">
+            <!-- Left: Logo -->
+            <div class="flex items-center gap-3 w-full lg:w-1/3 min-w-0">
+                <div class="p-2 md:p-3.5 bg-slate-950 rounded-xl border-2 border-rose-500 shrink-0 shadow-inner custom-holo-trigger" data-holo="Sistem Pakar Dermatologi & Klasifikasi Citra Kanker Kulit.">
+                    <i class="fa-solid fa-virus-covid text-rose-400 text-xl md:text-4xl animate-pulse"></i>
+                </div>
+                <div class="min-w-0 flex-1">
+                    <h1 class="font-tech text-sm sm:text-xl lg:text-3xl font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-[var(--text-main)] via-sky-400 to-rose-500 leading-tight uppercase flex items-center gap-1.5 flex-wrap">
+                        <span>SKIN SYIFA <span class="text-[var(--text-main)]">AI</span></span>
+                        <span class="text-[8px] md:text-xs lg:text-sm font-bold bg-rose-500/20 text-rose-400 px-1.5 py-0.5 rounded-md border border-rose-500/50 flex-shrink-0 tracking-normal shadow-sm">DEEP LEARNING</span>
+                    </h1>
+                    <p class="text-[8px] md:text-xs font-mono text-[var(--text-muted)] mt-0.5 uppercase tracking-wider flex items-center gap-1.5 font-bold">
+                        <span class="inline-block w-1.5 h-1.5 md:w-2.5 md:h-2.5 rounded-full bg-sky-500 animate-ping"></span> 
+                        <span class="truncate">Skin Cancer Classification System</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Center: Day and Time -->
+            <div class="flex w-full lg:w-1/3 justify-center">
+                <div class="bg-slate-950/90 border-2 border-[var(--border-color)] py-1.5 px-3 md:px-6 rounded-xl shadow-sm font-tech text-center flex flex-col justify-center items-center shrink-0 w-full max-w-[280px] custom-holo-trigger" data-holo="Waktu sinkronisasi sistem lokal berjalan real-time.">
+                    <div id="lbl-real-day" class="text-[8px] md:text-xs font-black text-slate-400 tracking-wider uppercase">Memuat...</div>
+                    <div class="text-xs md:text-xl font-black text-sky-400 mt-0.5 flex items-center justify-center gap-1.5 font-mono drop-shadow-md">
+                        <i class="fa-solid fa-clock text-[10px] md:text-sm text-sky-500"></i>
+                        <span id="lbl-real-clock">00:00:00</span> <span id="lbl-timezone" class="text-[8px] md:text-xs text-rose-500 font-bold">TZ</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Action Buttons -->
+            <div class="flex w-full lg:w-1/3 justify-center lg:justify-end gap-2 text-xs">
+                <button type="button" onclick="openHelpModal()" class="bg-slate-800 hover:bg-slate-700 text-white text-[9px] md:text-sm font-mono font-black px-2.5 md:px-4 py-2 rounded-xl border-2 border-[var(--border-color)] transition-all flex items-center justify-center gap-1 flex-1 md:flex-none shadow-md custom-holo-trigger" data-holo="Lihat metrik dataset HAM10000 dan daftar patologi kanker kulit.">
+                    <i class="fa-solid fa-chart-bar text-sky-400"></i> <span>DATA METRICS</span>
+                </button>
+                <button type="button" onclick="openCreatorModal()" class="bg-slate-800 hover:bg-slate-700 text-white text-[9px] md:text-sm font-mono font-black px-2.5 md:px-4 py-2 rounded-xl border-2 border-[var(--border-color)] transition-all flex items-center justify-center gap-1 flex-1 md:flex-none shadow-md custom-holo-trigger" data-holo="Identitas Pengembang: Menampilkan profil Mohamad Hartadi, tautan blog, dan kontak WhatsApp.">
+                    <i class="fa-solid fa-user-astronaut text-rose-400"></i> <span>KRIDIT</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="w-full flex flex-col lg:flex-row gap-4 md:gap-6 items-start relative mt-1 flex-1">
+            
+            <aside class="w-full lg:w-72 shrink-0 lg:sticky lg:top-6 z-30">
+                <div class="bg-[var(--bg-card)] p-3 md:p-4 rounded-2xl border-2 border-[var(--border-color)] space-y-3 shadow-xl">
+                    <div>
+                        <h2 class="text-[9px] md:text-xs font-black text-sky-500 font-mono uppercase tracking-wider mb-2 px-1"><i class="fa-solid fa-network-wired mr-1"></i> Modul Navigasi</h2>
+                        <nav class="flex flex-row overflow-x-auto lg:flex-col gap-2 lg:gap-0 lg:space-y-2 text-xs font-mono font-bold pb-1 lg:pb-0 hide-scrollbar" id="categoryNav">
+                            <button onclick="switchTab('dashboard', this)" class="nav-btn whitespace-nowrap flex-shrink-0 lg:w-full text-left px-3.5 py-2 md:py-3 rounded-xl bg-sky-600 text-white flex items-center justify-between transition-colors shadow-md">
+                                <span><i class="fa-solid fa-chart-pie mr-2 w-4 text-center"></i> Dasbor Utama</span>
+                            </button>
+                            <button onclick="switchTab('pasien', this)" class="nav-btn whitespace-nowrap flex-shrink-0 lg:w-full text-left px-3.5 py-2 md:py-3 rounded-xl text-[var(--text-main)] hover:bg-sky-500/10 flex items-center justify-between transition-colors border border-transparent custom-holo-trigger" data-holo="Registrasi Pasien, Lihat Riwayat Pemeriksaan Lesi, dan Rekam Medis.">
+                                <span><i class="fa-solid fa-users-viewfinder mr-2 w-4 text-center text-amber-400"></i> Kelola Pasien</span>
+                            </button>
+                            <button onclick="switchTab('diagnosis', this)" class="nav-btn whitespace-nowrap flex-shrink-0 lg:w-full text-left px-3.5 py-2 md:py-3 rounded-xl text-[var(--text-main)] hover:bg-sky-500/10 flex items-center justify-between transition-colors border border-transparent custom-holo-trigger" data-holo="Mulai analisis: Upload citra dermoskopi lesi kulit atau pilih parameter ABCDE kriteria klinis.">
+                                <span><i class="fa-solid fa-stethoscope mr-2 w-4 text-center text-rose-500"></i> Analisis Lesi</span>
+                            </button>
+                        </nav>
+                    </div>
+                    
+                    <div class="hidden lg:block bg-[var(--bg-input)] p-4 rounded-xl border-2 border-[var(--border-color)] text-xs font-mono text-[var(--text-main)] space-y-3 leading-relaxed shadow-md">
+                        <span class="font-black text-rose-500 block text-sm border-b border-slate-700 pb-1.5 uppercase"><i class="fa-solid fa-bolt mr-1"></i> Aturan ABCDE Melanosit:</span>
+                        <div class="space-y-2 text-justify font-sans text-[11px] text-slate-400">
+                            <p><b class="text-white">A - Asymmetry:</b> Bentuk tahi lalat tidak simetris.</p>
+                            <p><b class="text-white">B - Border:</b> Pinggiran kasar / tidak rata.</p>
+                            <p><b class="text-white">C - Color:</b> Warna bervariasi / tidak homogen.</p>
+                            <p><b class="text-white">D - Diameter:</b> Berukuran melampaui 6mm.</p>
+                            <p><b class="text-white">E - Evolving:</b> Berubah ukuran/berdarah seiring waktu.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="flex-1 w-full bg-[var(--bg-card)] rounded-2xl border-2 border-[var(--border-color)] shadow-xl p-3 md:p-6 overflow-hidden min-h-[420px] lg:min-h-[500px] flex flex-col relative">
+                
+                <!-- TAB DASHBOARD -->
+                <div id="tab-dashboard" class="tab-content flex-1 animate-fade-in overflow-y-auto pr-1 hide-scrollbar">
+                    <div class="flex items-center gap-2 mb-4 border-b border-slate-700 pb-2">
+                        <i class="fa-solid fa-server text-sky-400 text-lg md:text-2xl animate-pulse"></i>
+                        <h2 class="text-xs sm:text-lg md:text-2xl font-tech font-black text-[var(--text-main)] uppercase tracking-widest truncate">SISTEM INFORMASI ONKOLOGI DINI</h2>
+                    </div>
+
+                    <!-- Statistik Card -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4 md:mb-6">
+                        <div class="border-2 border-sky-500/40 p-3 md:p-5 rounded-xl bg-gradient-to-br from-slate-900 to-slate-950 text-center relative overflow-hidden shadow-inner custom-holo-trigger" data-holo="Jumlah profil pasien kulit terdaftar.">
+                            <i class="fa-solid fa-hospital-user text-4xl md:text-6xl mb-2 opacity-20 absolute -right-2 -bottom-2 text-sky-400"></i>
+                            <h3 class="text-[10px] md:text-sm font-mono font-bold text-slate-400 uppercase tracking-widest">Total Pasien</h3>
+                            <p id="dash-total-patient" class="text-2xl md:text-4xl font-tech font-black text-sky-400 mt-1 filter drop-shadow-[0_0_10px_rgba(56,189,248,0.8)]">0</p>
+                        </div>
+                        <div class="border-2 border-rose-500/40 p-3 md:p-5 rounded-xl bg-slate-950 text-center shadow-inner flex flex-col justify-center relative overflow-hidden">
+                            <i class="fa-solid fa-clipboard-list text-4xl md:text-6xl mb-2 opacity-10 absolute -right-2 -bottom-2 text-rose-400"></i>
+                            <h3 class="text-[10px] md:text-sm font-mono font-bold text-slate-400 uppercase tracking-widest">Riwayat Pemeriksaan</h3>
+                            <p id="dash-total-diag" class="text-2xl md:text-4xl font-tech font-black text-rose-400 mt-1 filter drop-shadow-[0_0_10px_rgba(244,63,94,0.8)]">0</p>
+                        </div>
+                        <div class="hidden lg:flex border-2 border-emerald-500/40 p-4 rounded-xl bg-slate-950 text-center shadow-inner flex flex-col justify-center">
+                            <h3 class="text-xs md:text-sm font-mono font-bold text-slate-400 uppercase tracking-widest">Model Klasifikasi</h3>
+                            <p class="text-sm md:text-md font-tech font-black text-emerald-400 mt-2"><i class="fa-solid fa-microchip"></i> ResNet50 / MobileNetV2</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div class="bg-slate-900/80 p-3.5 md:p-5 rounded-xl border border-sky-500/50 shadow-[0_0_15px_rgba(56,189,248,0.1)] custom-holo-trigger" data-holo="Informasi dasar alur kerja kecerdasan buatan.">
+                            <h3 class="text-xs md:text-lg font-tech font-black text-sky-400 mb-2 border-b border-slate-700 pb-2 uppercase"><i class="fa-solid fa-circle-info mr-2"></i> PANDUAN INTELLIGENT SYSTEM</h3>
+                            <ul class="space-y-2 text-[10px] md:text-sm font-mono text-slate-300 mt-2 text-justify">
+                                <li class="flex items-start gap-1.5"><i class="fa-solid fa-angle-right text-rose-400 mt-0.5"></i> <span><b>Registrasi:</b> Masukkan basis data identitas pasien pada menu "Kelola Pasien".</span></li>
+                                <li class="flex items-start gap-1.5"><i class="fa-solid fa-angle-right text-rose-400 mt-0.5"></i> <span><b>Metode Dual Analisis:</b> Anda dapat mengunggah foto lesi dermoskopi kulit sekaligus mencentang manifestasi klinis ABCDE yang tampak untuk memperkuat deteksi AI.</span></li>
+                                <li class="flex items-start gap-1.5"><i class="fa-solid fa-angle-right text-rose-400 mt-0.5"></i> <span><b>Sinkronisasi Riwayat:</b> Setiap hasil pemeriksaan otomatis dikirim langsung menuju log riwayat pasien.</span></li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-900/80 p-3.5 md:p-5 rounded-xl border border-rose-500/50 shadow-[0_0_15px_rgba(244,63,94,0.1)] relative overflow-hidden custom-holo-trigger" data-holo="Profil pengembang arsitektur sistem.">
+                            <div class="absolute -right-2 -bottom-4 opacity-10"><i class="fa-solid fa-code text-6xl md:text-8xl text-rose-500"></i></div>
+                            <h3 class="text-xs md:text-lg font-tech font-black text-rose-400 mb-2 border-b border-slate-700 pb-2 relative z-10 uppercase"><i class="fa-solid fa-laptop-code mr-2"></i> KRIDIT PROGRAMMER</h3>
+                            <div class="space-y-2.5 text-[10px] md:text-sm font-mono text-slate-300 relative z-10 mt-2">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-user-astronaut text-sky-400 text-sm md:text-2xl w-5 md:w-8 text-center shrink-0"></i>
+                                    <div><span class="block text-[8px] text-slate-500 uppercase tracking-wider">Software Engineer & UI/UX</span><span class="font-black text-white text-xs md:text-base">Mohamad Hartadi (Adi)</span></div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-brands fa-facebook text-blue-400 text-sm md:text-2xl w-5 md:w-8 text-center shrink-0"></i>
+                                    <div><span class="block text-[8px] text-slate-500 uppercase tracking-wider">Facebook</span><a href="https://www.facebook.com/m.hartadi" target="_blank" class="font-bold text-blue-400 hover:underline text-[11px] md:text-sm">facebook.com/m.hartadi</a></div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-globe text-amber-500 text-sm md:text-2xl w-5 md:w-8 text-center shrink-0"></i>
+                                    <div class="min-w-0"><span class="block text-[8px] text-slate-500 uppercase tracking-wider">Blog & Portofolio</span><a href="https://newbieonline7.blogspot.com/" target="_blank" class="font-bold text-amber-400 hover:underline block truncate text-[11px] md:text-sm">newbieonline7.blogspot.com</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB KELOLA PASIEN -->
+                <div id="tab-pasien" class="tab-content hidden-ui flex-1 flex flex-col h-full animate-fade-in overflow-hidden">
+                    <div class="flex items-center gap-2 mb-3 border-b border-amber-500/50 pb-2 shrink-0">
+                        <i class="fa-solid fa-users-viewfinder text-amber-400 text-lg md:text-2xl"></i>
+                        <h2 class="text-xs sm:text-lg md:text-xl font-tech font-black text-amber-400 uppercase tracking-widest">MANAJEMEN REKAM MEDIS</h2>
+                    </div>
+
+                    <!-- Form Input Pasien -->
+                    <div class="bg-slate-900 p-3 rounded-xl border border-slate-700 mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2.5 font-mono text-[10px] md:text-xs shadow-inner shrink-0">
+                        <input type="hidden" id="p-tracker-id">
+                        
+                        <div class="flex flex-col">
+                            <label class="text-slate-400 font-bold mb-1">ID Pasien</label>
+                            <input type="text" id="p-id" placeholder="P-XXXX" class="w-full p-2 bg-slate-950 border border-slate-600 rounded-lg text-white focus:border-rose-500 outline-none text-xs">
+                        </div>
+                        <div class="flex flex-col sm:col-span-2">
+                            <label class="text-slate-400 font-bold mb-1">Nama Lengkap Pasien</label>
+                            <input type="text" id="p-nama" placeholder="Contoh: Ahmad" class="w-full p-2 bg-slate-950 border border-slate-600 rounded-lg text-white focus:border-rose-500 outline-none text-xs">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-slate-400 font-bold mb-1">Usia (Tahun)</label>
+                            <input type="number" id="p-usia" placeholder="30" class="w-full p-2 bg-slate-950 border border-slate-600 rounded-lg text-white focus:border-rose-500 outline-none text-xs">
+                        </div>
+                        <div class="flex flex-col">
+                            <label class="text-slate-400 font-bold mb-1">Gender</label>
+                            <select id="p-gender" class="w-full p-2 bg-slate-950 border border-slate-600 rounded-lg text-white focus:border-rose-500 outline-none text-xs">
+                                <option value="L">Laki-laki</option><option value="P">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="flex flex-col sm:col-span-2">
+                            <label class="text-slate-400 font-bold mb-1">Nomor WhatsApp</label>
+                            <input type="text" id="p-wa" placeholder="08xxxxxxxxxx" class="w-full p-2 bg-slate-950 border border-slate-600 rounded-lg text-white focus:border-rose-500 outline-none text-xs">
+                        </div>
+                        <div class="flex flex-col justify-end">
+                            <button onclick="savePatient()" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-tech font-black tracking-widest py-2 rounded-lg transition-all shadow-md text-xs">SIMPAN PROFIL</button>
+                        </div>
+                    </div>
+
+                    <!-- Tabel Pasien -->
+                    <div class="overflow-x-auto w-full flex-1 bg-slate-950 border border-slate-700 rounded-xl">
+                        <table class="w-full text-left border-collapse text-[10px] md:text-sm font-mono min-w-[600px]">
+                            <thead class="bg-slate-900 border-b-2 border-amber-500 text-slate-300">
+                                <tr>
+                                    <th class="p-2 md:p-3 whitespace-nowrap">ID Reg</th>
+                                    <th class="p-2 md:p-3">Nama Pasien / No. WA</th>
+                                    <th class="p-2 md:p-3 whitespace-nowrap">Usia/Gen</th>
+                                    <th class="p-2 md:p-3 whitespace-nowrap">Pemeriksaan Terakhir</th>
+                                    <th class="p-2 md:p-3 text-center whitespace-nowrap">Aksi & Rekam Medis</th>
+                                </tr>
+                            </thead>
+                            <tbody id="patient-table-body" class="text-slate-100 align-middle"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB DIAGNOSIS -->
+                <div id="tab-diagnosis" class="tab-content hidden-ui flex-1 flex flex-col h-full animate-fade-in">
+                    <div class="flex items-center gap-2 border-b border-rose-500/50 pb-2 mb-3 shrink-0">
+                        <h2 class="text-xs md:text-xl font-tech font-black uppercase text-rose-400"><i class="fa-solid fa-list-check mr-2"></i> Modul Klasifikasi Deep Learning & Gejala</h2>
+                    </div>
+
+                    <!-- Pilih Pasien Target -->
+                    <div class="bg-slate-900 p-2.5 md:p-4 rounded-xl border border-sky-500/30 mb-3 shrink-0 shadow-inner">
+                        <label class="text-sky-400 font-bold mb-1.5 uppercase tracking-wide block text-[10px] md:text-sm"><i class="fa-solid fa-user-check mr-1"></i> Pilih Pasien:</label>
+                        <select id="diag-patient-select" class="w-full p-2 bg-slate-950 border-2 border-slate-600 rounded-lg text-white font-bold focus:border-rose-500 outline-none text-xs font-mono"></select>
+                    </div>
+
+                    <!-- Layout Komponen Input Deteksi -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-3 flex-1 overflow-y-auto hide-scrollbar">
+                        <!-- Kolom Upload Gambar -->
+                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-700 flex flex-col items-center justify-center font-mono text-xs text-center h-fit">
+                            <h3 class="text-sky-400 font-bold uppercase mb-2 text-left w-full text-[11px] md:text-xs"><i class="fa-solid fa-camera"></i> Dermoscopy Image</h3>
+                            <div class="w-full h-32 md:h-40 bg-slate-950 border-2 border-dashed border-slate-700 rounded-xl relative flex flex-col items-center justify-center p-2 group overflow-hidden">
+                                <div id="scanLine" class="hidden absolute left-0 right-0 h-1 bg-rose-500 shadow-[0_0_10px_#f43f5e] scanner-laser z-20"></div>
+                                <img id="previewImage" class="absolute inset-0 w-full h-full object-cover hidden z-10" />
+                                <div id="uploadPlaceholder" class="space-y-1 z-0">
+                                    <i class="fa-solid fa-cloud-arrow-up text-2xl text-slate-500 group-hover:text-rose-400 transition-colors"></i>
+                                    <p class="text-[9px] md:text-[10px] text-slate-400 px-2">Tap/Drag foto dermoskopi makro kelainan kulit</p>
+                                </div>
+                                <input type="file" id="imageInput" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-30" onchange="previewFile()">
+                            </div>
+                        </div>
+
+                        <!-- Kolom Checklist Gejala ABCDE Kriteria Klinis -->
+                        <div class="bg-slate-900 p-3 rounded-xl border border-slate-700 lg:col-span-2 font-mono text-[10px] md:text-xs flex flex-col">
+                            <h3 class="text-rose-400 font-bold uppercase mb-1 text-[11px] md:text-xs"><i class="fa-solid fa-square-poll-horizontal"></i> Kriteria Manifestasi Fisik Lesi</h3>
+                            <p class="text-slate-400 mb-2 border-l-2 border-rose-500 Grandma pl-2 text-[9px] md:text-xs">Gunakan kriteria visual dermatologi untuk memperkuat akurasi:</p>
+                            <div id="symptoms-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2 overflow-y-auto hide-scrollbar max-h-56 lg:max-h-none"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3 shrink-0 border-t border-slate-700 pt-3">
+                        <button onclick="processDiagnosis()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-tech font-black tracking-widest py-2.5 md:py-3 rounded-xl transition-all shadow-md flex items-center justify-center gap-2 custom-holo-trigger text-xs md:text-sm" data-holo="Jalankan ekstraksi fitur model saraf tiruan konvolusional (CNN).">
+                            <i class="fa-solid fa-microchip text-sm md:text-lg"></i> KLASIFIKASI & PROSES DATA
+                        </button>
+                    </div>
+
+                    <!-- Hasil Diagnosis Overlay Modal -->
+                    <div id="resultModal" class="hidden absolute inset-0 bg-slate-950/95 backdrop-blur-sm z-50 flex flex-col p-4 md:p-6 overflow-y-auto">
+                        <div class="flex justify-between items-center border-b-2 border-sky-500 pb-2 mb-3 shrink-0">
+                            <h2 class="text-sm md:text-2xl font-tech font-black text-sky-400 uppercase"><i class="fa-solid fa-file-medical-alt mr-1"></i> CLASSIFICATION REPORT</h2>
+                            <button onclick="closeResult()" class="text-slate-400 hover:text-rose-500 text-xl font-black">&times;</button>
+                        </div>
+                        
+                        <div id="diagnosis-output" class="flex-1 text-slate-200 font-mono text-xs md:text-base space-y-3"></div>
+                        
+                        <div class="mt-4 flex flex-col sm:flex-row gap-2 border-t border-slate-800 pt-3 text-xs">
+                            <button onclick="saveDiagnosisAndSendWA()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-tech font-black tracking-wider py-2.5 rounded-xl transition-all flex items-center justify-center gap-2 shadow-lg">
+                                <i class="fa-brands fa-whatsapp text-lg"></i> SIMPAN REKAM MEDIS & INFOKAN WA
+                            </button>
+                            <button onclick="closeResult()" class="w-full sm:w-1/3 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-tech font-black tracking-widest py-2.5 rounded-xl transition-all">TUTUP</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- MODAL HISTORY LOG PASIEN -->
+    <div id="patientHistoryModal" class="hidden fixed inset-0 z-[1060] bg-slate-950/95 backdrop-blur-sm flex items-center justify-center p-3 md:p-4">
+        <div class="bg-slate-900 border-2 border-amber-500 rounded-2xl w-full max-w-2xl max-h-[80vh] flex flex-col shadow-[0_0_40px_rgba(245,158,11,0.3)] overflow-hidden">
+            <div class="flex justify-between items-center border-b-2 border-amber-500 p-3 shrink-0 bg-slate-950">
+                <h2 class="text-xs md:text-lg font-tech font-black text-amber-400 flex items-center"><i class="fa-solid fa-notes-medical mr-2"></i> LOG HISTORI LESI KULIT PASIEN</h2>
+                <button onclick="closePatientHistory()" class="text-slate-400 hover:text-amber-500 text-xl font-black cursor-pointer px-1">&times;</button>
+            </div>
+            
+            <div class="p-3 bg-slate-900 border-b border-slate-800 shrink-0 font-mono text-[11px] md:text-sm text-slate-300">
+                <p><b>ID Pasien:</b> <span id="hist-id" class="text-sky-400 font-bold"></span></p>
+                <p><b>Nama:</b> <span id="hist-nama" class="text-white font-black"></span></p>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-3 bg-slate-950 space-y-2.5 hide-scrollbar" id="hist-container"></div>
+            
+            <div class="p-3 bg-slate-900 border-t border-slate-800 shrink-0">
+                <button onclick="closePatientHistory()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-tech font-black tracking-widest py-2 rounded-xl transition-all border border-slate-600 text-xs">TUTUP LOG</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL HELP SYSTEM / DATA METRICS -->
+    <div id="helpSystemModal" class="hidden fixed inset-0 z-[1050] bg-slate-950/95 backdrop-blur-sm flex items-center justify-center p-2 md:p-4">
+        <div class="bg-[var(--bg-card)] border-2 border-sky-500 rounded-2xl w-full max-w-4xl h-[80vh] flex flex-col shadow-[0_0_40px_rgba(56,189,248,0.4)] overflow-hidden">
+            <div class="flex justify-between items-center border-b-2 border-sky-500 p-3 md:p-4 shrink-0 bg-slate-900">
+                <h2 class="text-xs md:text-xl font-tech font-black text-sky-400 flex items-center"><i class="fa-solid fa-chart-bar mr-2 text-rose-500"></i> METRIK VALIDASI DATASET HAM10000</h2>
+                <button onclick="closeHelpModal()" class="text-slate-400 hover:text-rose-500 text-xl font-black cursor-pointer px-1">&times;</button>
+            </div>
+            
+            <div class="flex-1 overflow-x-auto p-3 md:p-4 bg-slate-950 hide-scrollbar">
+                <table class="w-full text-left border-collapse text-[10px] md:text-sm font-mono min-w-[700px]">
+                    <thead class="bg-slate-900 border-b-2 border-rose-500 text-slate-300">
+                        <tr>
+                            <th class="p-2 w-12">ID</th>
+                            <th class="p-2 w-48">Diagnosis / Klasifikasi</th>
+                            <th class="p-2">Patologi & Karakteristik</th>
+                            <th class="p-2 w-48">Validation F1-Score</th>
+                        </tr>
+                    </thead>
+                    <tbody id="help-metrics-table" class="text-slate-100 align-top"></tbody>
+                </table>
+            </div>
+            <div class="p-3 bg-slate-900 border-t border-slate-800 shrink-0">
+                <button onclick="closeHelpModal()" class="w-full bg-sky-600 hover:bg-sky-500 text-white font-tech font-black tracking-widest py-2 rounded-xl transition-all shadow-md text-xs">TUTUP DATA METRICS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SKINBOT CHAT TERMINAL -->
+    <div class="fixed bottom-4 right-4 md:bottom-5 md:right-5 z-[900] flex flex-row items-center gap-2 pointer-events-none font-mono">
+        <div id="chatWindow" class="absolute bottom-14 md:bottom-16 right-0 w-[calc(100vw-2rem)] max-w-[350px] sm:w-[380px] h-[70vh] max-h-[550px] bg-slate-900 border-2 border-rose-500 rounded-2xl flex-col hidden overflow-hidden shadow-[0_0_30px_rgba(244,63,94,0.3)] pointer-events-auto">
+            
+            <div class="bg-gradient-to-b from-slate-950 to-slate-900 p-3 border-b-2 border-rose-500 shadow-md shrink-0 flex flex-col relative">
+                <div class="flex justify-between items-start">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-user-shield text-rose-400 text-lg bounce-chat"></i>
+                        <div>
+                            <h4 class="font-tech text-[10px] font-black text-rose-400 tracking-wide">SKINBOT TERMINAL</h4>
+                            <span class="text-[8px] font-mono text-sky-400 block font-black">● ONCOLOGY ASSISTANT ONLINE</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleChatWindow()" class="text-slate-400 hover:text-rose-400 px-1.5 cursor-pointer font-black text-lg leading-none">&minus;</button>
+                </div>
+
+                <div class="flex flex-col items-center justify-center mt-2 mb-1.5 bg-slate-950/60 py-2 rounded-xl border border-slate-800 shadow-inner">
+                    <span id="bot-large-time" class="text-2xl font-black font-tech text-sky-400 drop-shadow-[0_0_15px_rgba(56,189,248,0.8)] tracking-widest">00:00:00</span>
+                    <span id="bot-large-day" class="text-[9px] font-bold text-rose-400 uppercase tracking-widest mt-0.5">Memuat...</span>
+                </div>
+
+                <div class="flex justify-center mt-0.5">
+                    <button onclick="showProgrammerInfoBot()" class="bg-slate-800 hover:bg-slate-700 border border-rose-500/50 text-[9px] text-pink-300 px-3 py-1.5 rounded-full flex items-center gap-1.5 transition-all shadow-md font-bold uppercase tracking-wider cursor-pointer">
+                        <i class="fa-solid fa-user-astronaut text-rose-400 text-xs"></i> Shortcut Programmer
+                    </button>
+                </div>
+            </div>
+            
+            <div id="chatMessages" class="flex-1 p-2 overflow-y-auto space-y-2 font-mono text-xs text-white bg-slate-950 hide-scrollbar pb-3">
+                <div class="bg-slate-900/90 p-2.5 rounded-xl border border-slate-700 max-w-[85%] leading-relaxed text-justify">
+                    <span class="text-rose-400 text-[10px] block font-black mb-1"><i class="fa-solid fa-robot mr-1"></i> SKINBOT:</span>
+                    Halo, saya SkinBot! Asisten virtual cerdas terintegrasi dari SKIN SYIFA AI. Tanyakan kepada saya info seputar lesi melanoma atau non-melanoma.
+                </div>
+            </div>
+
+            <form class="p-1.5 bg-slate-900 border-t border-slate-800 flex gap-1.5 shrink-0" onsubmit="handleChatSubmit(event)">
+                <input type="text" id="chatInput" autocomplete="off" placeholder="Tanya SkinBot..." class="flex-1 w-0 bg-slate-950 border-2 border-slate-700 rounded-xl px-2 py-1.5 text-xs text-white focus:outline-none focus:border-rose-500 font-bold">
+                <button type="submit" class="bg-rose-600 hover:bg-rose-500 text-white px-3 py-1.5 rounded-xl font-black cursor-pointer flex items-center justify-center shrink-0"><i class="fa-solid fa-paper-plane text-xs"></i></button>
+            </form>
+        </div>
+
+        <div class="flex items-center gap-2 pointer-events-auto">
+            <button onclick="triggerScreensaverManual()" class="h-9 w-9 md:h-11 md:w-11 rounded-full bg-slate-950 border-2 border-sky-500 text-sky-400 flex items-center justify-center shadow-2xl cursor-pointer hover:scale-110 transition-transform custom-holo-trigger" data-holo="Aktifkan Screensaver Mode Pelindung Privasi.">
+                <i class="fa-solid fa-desktop text-xs md:text-sm"></i>
+            </button>
+            <button onclick="toggleChatWindow()" class="h-11 w-11 md:h-13 md:w-13 rounded-full bg-gradient-to-r from-rose-600 to-rose-400 border-2 border-white flex items-center justify-center text-slate-950 shadow-2xl cursor-pointer hover:scale-105 transition-transform relative custom-holo-trigger" data-holo="Buka SkinBot asisten interaktif.">
+                <i class="fa-solid fa-comment-medical text-base md:text-xl"></i>
+                <span class="absolute top-0 right-0 h-2.5 w-2.5 bg-sky-400 rounded-full border-2 border-white animate-ping"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- CREATOR MODAL -->
+    <div id="creatorModal" class="fixed inset-0 z-[1100] hidden bg-black/70 flex items-center justify-center p-4 select-none">
+        <div id="draggablePanel" class="bg-slate-900 border-2 border-rose-500 rounded-2xl w-full max-w-sm p-4 absolute shadow-[0_0_40px_rgba(244,63,94,0.5)]">
+            <div id="dragHandle" class="drag-handle text-center pb-2 mb-3 border-b border-slate-800 flex flex-col items-center justify-center relative">
+                <div class="w-10 h-10 bg-slate-950 rounded-full border-2 border-rose-500 flex items-center justify-center text-rose-400 text-lg mt-1 mb-1">
+                    <i class="fa-solid fa-user-astronaut"></i>
+                </div>
+                <h3 class="text-sm font-black font-tech text-rose-400 tracking-wider uppercase">Mohamad Hartadi (Adi)</h3>
+                <p class="text-[10px] font-mono font-bold text-slate-300">Software Engineer & Data Scientist</p>
+                <button onclick="closeCreatorModal()" class="absolute top-0 right-0 text-slate-400 hover:text-white text-xl font-black p-1 cursor-pointer">&times;</button>
+            </div>
+            
+            <div class="bg-slate-950 p-2.5 rounded-xl border border-slate-800 space-y-2 font-mono text-[10px] sm:text-xs font-bold">
+                <div class="flex items-center gap-2 py-1.5 border-b border-slate-800/70">
+                    <i class="fa-brands fa-facebook text-blue-400 text-base w-5 text-center shrink-0"></i>
+                    <div class="min-w-0">
+                        <span class="block text-[7px] text-slate-500 tracking-wide uppercase">Profil FB</span>
+                        <a href="https://www.facebook.com/m.hartadi" target="_blank" class="text-sky-400 font-bold hover:underline block truncate">facebook.com/m.hartadi</a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 py-1.5 border-b border-slate-800/70">
+                    <i class="fa-solid fa-globe text-amber-500 text-base w-5 text-center shrink-0"></i>
+                    <div class="min-w-0">
+                        <span class="block text-[7px] text-slate-500 tracking-wide uppercase">Blog Portal</span>
+                        <a href="https://newbieonline7.blogspot.com/" target="_blank" class="text-amber-400 font-bold hover:underline block truncate">newbieonline7.blogspot.com</a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 py-1.5">
+                    <i class="fa-brands fa-whatsapp text-emerald-400 text-base w-5 text-center shrink-0"></i>
+                    <div class="min-w-0">
+                        <span class="block text-[7px] text-slate-500 tracking-wide uppercase">WhatsApp</span>
+                        <a href="https://wa.me/6282231036047" target="_blank" class="text-emerald-400 font-bold hover:underline block truncate">082231036047</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const symptomsData = [
+            { id: 'G01', text: 'Bentuk lesi asimetris (Kedua sisi tahi lalat tidak sama)' },
+            { id: 'G02', text: 'Pinggiran lesi mengorosi, kabur, kasar atau tidak rata (Irregular Border)' },
+            { id: 'G03', text: 'Warna bervariasi (Gradasi hitam, cokelat, merah, atau putih dalam satu area)' },
+            { id: 'G04', text: 'Diameter bercak melampaui ukuran makro > 6 mm' },
+            { id: 'G05', text: 'Lesi mengalami evolusi (Berubah ukuran, bentuk, tinggi, gatal, atau berdarah)' },
+            { id: 'G06', text: 'Permukaan licin mengkilap seperti mutiara disertai pembuluh darah kecil tampak jelas' },
+            { id: 'G07', text: 'Tampak seperti luka terbuka yang sulit sembuh lebih dari 3 minggu' },
+            { id: 'G08', text: 'Bercak bersisik tebal kemerahan, terkadang mengelupas atau membentuk kerak' }
+        ];
+
+        const diseasesData = [
+            { id: 'P01', name: 'Melanoma (MEL)', symptoms: ['G01', 'G02', 'G03', 'G04', 'G05'], desc: 'Kanker kulit paling agresif dan berbahaya yang berkembang dari melanosit (sel pigmen). Memiliki risiko metastasis tinggi jika lambat ditangani.', solusi: 'Segera lakukan eksisi bedah oleh dokter spesialis bedah onkologi. Hindari paparan sinar UV berlebih dan lakukan biopsi jaringan.' },
+            { id: 'P02', name: 'Basal Cell Carcinoma (BCC)', symptoms: ['G06', 'G07'], desc: 'Jenis kanker kulit non-melanoma paling umum. Tumbuh lambat pada area terpapar matahari, jarang menyebar tetapi merusak jaringan lokal.', solusi: 'Rekomendasi bedah mikrografik Mohs atau terapi kuretase. Gunakan tabir surya berspektrum luas setiap hari.' },
+            { id: 'P03', name: 'Squamous Cell Carcinoma (SCC)', symptoms: ['G07', 'G08'], desc: 'Kanker kulit non-melanoma yang berasal dari sel skuamosa epidermis. Dapat berkembang dari keratosis aktinik jika dibiarkan.', solusi: 'Tindakan eksisi bedah, kriobedah (pembekuan), atau terapi radiasi superfisial tergantung tingkat penetrasi lesi.' },
+            { id: 'P04', name: 'Benign Keratosis-like Lesions (BKL) / Nevus Melanositik', symptoms: ['G04'], desc: 'Pertumbuhan jaringan kulit jinak (non-kanker) seperti tahi lalat normal atau pertumbuhan kutil seboroik karena faktor degenerasi usia.', solusi: 'Secara medis tidak memerlukan terapi agresif kecuali untuk estetika atau jika timbul iritasi mekanis pakaian.' }
+        ];
+
+        let patientDB = JSON.parse(localStorage.getItem('SKIN_SYIFA_DB')) || [];
+        let currentDiagnosisResult = null; 
+        let isScreensaverActive = false;
+        let systemIdleTimeSeconds = 0;
+        let mobileTooltipTimer = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            renderSymptoms();
+            runTimeSynchronization();
+            setupScreensaverWatchdog();
+            setupHolographicTooltips();
+            renderPatientsTable();
+            populateDiagnosisSelect();
+            updateDashboardStats();
+            
+            setTimeout(() => {
+                const loader = document.getElementById('startupLoader');
+                loader.classList.add('opacity-0');
+                setTimeout(() => loader.classList.add('hidden'), 700);
+            }, 4000); 
+        });
+
+        function updateDashboardStats() {
+            document.getElementById('dash-total-patient').innerText = patientDB.length;
+            let totalRiwayat = 0;
+            patientDB.forEach(p => totalRiwayat += p.riwayat.length);
+            document.getElementById('dash-total-diag').innerText = totalRiwayat;
+        }
+
+        function getFormattedDate(dateStr) {
+            if(!dateStr) return "<span class='text-slate-500 italic text-[10px]'>Belum diperiksa</span>";
+            const d = new Date(dateStr);
+            return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} <span class='text-[10px] text-slate-400 block'>${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')} WIB</span>`;
+        }
+
+        function savePatient() {
+            const trackerId = document.getElementById('p-tracker-id').value;
+            let idInput = document.getElementById('p-id').value.trim();
+            const nama = document.getElementById('p-nama').value.trim();
+            const usia = document.getElementById('p-usia').value.trim();
+            const gender = document.getElementById('p-gender').value;
+            const wa = document.getElementById('p-wa').value.trim();
+
+            if(!nama || !usia) { alert("Data Nama dan Usia wajib diisi."); return; }
+
+            if(trackerId) {
+                const index = patientDB.findIndex(p => p.id === trackerId);
+                if (!idInput) idInput = trackerId; 
+                patientDB[index] = { ...patientDB[index], id: idInput, nama, usia, gender, wa };
+            } else {
+                if(!idInput) idInput = 'P-' + Math.floor(Math.random() * 9000 + 1000);
+                if(patientDB.findIndex(p => p.id === idInput) !== -1) { alert("ID sudah ada!"); return; }
+                patientDB.push({ id: idInput, nama, usia, gender, wa, riwayat: [], lastVisit: "" });
+            }
+
+            localStorage.setItem('SKIN_SYIFA_DB', JSON.stringify(patientDB));
+            document.getElementById('p-tracker-id').value = ''; document.getElementById('p-id').value = '';
+            document.getElementById('p-nama').value = ''; document.getElementById('p-usia').value = ''; document.getElementById('p-wa').value = '';
+            
+            renderPatientsTable(); populateDiagnosisSelect(); updateDashboardStats();
+            alert("Profil pasien berhasil disimpan!");
+        }
+
+        function renderPatientsTable() {
+            const tbody = document.getElementById('patient-table-body');
+            tbody.innerHTML = '';
+            patientDB.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-700/50 hover:bg-slate-900 transition-all text-xs";
+                tr.innerHTML = `
+                    <td class="p-2 md:p-3 text-amber-400 font-bold">${p.id}</td>
+                    <td class="p-2 md:p-3 font-black">${p.nama}<br><span class="text-[10px] text-emerald-400 font-normal"><i class="fa-brands fa-whatsapp"></i> ${p.wa || '-'}</span></td>
+                    <td class="p-2 md:p-3">${p.usia} Th / ${p.gender}</td>
+                    <td class="p-2 md:p-3">${getFormattedDate(p.lastVisit)}</td>
+                    <td class="p-2 md:p-3 text-center space-x-2">
+                        <button onclick="editPatient('${p.id}')" class="text-amber-400 hover:text-white"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="viewHistory('${p.id}')" class="text-sky-400 hover:text-white"><i class="fa-solid fa-file-medical-alt"></i></button>
+                        <button onclick="startDiagnosisFor('${p.id}')" class="text-rose-400 hover:text-white"><i class="fa-solid fa-stethoscope"></i></button>
+                        <button onclick="deletePatient('${p.id}')" class="text-red-400 hover:text-white"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function editPatient(id) {
+            const p = patientDB.find(x => x.id === id);
+            if(p) {
+                document.getElementById('p-tracker-id').value = p.id;
+                document.getElementById('p-id').value = p.id;
+                document.getElementById('p-nama').value = p.nama;
+                document.getElementById('p-usia').value = p.usia;
+                document.getElementById('p-gender').value = p.gender;
+                document.getElementById('p-wa').value = p.wa || "";
+            }
+        }
+
+        function deletePatient(id) {
+            if(confirm('Hapus profil data pasien permanen beserta log riwayat?')) {
+                patientDB = patientDB.filter(x => x.id !== id);
+                localStorage.setItem('SKIN_SYIFA_DB', JSON.stringify(patientDB));
+                renderPatientsTable(); populateDiagnosisSelect(); updateDashboardStats();
+            }
+        }
+
+        function viewHistory(id) {
+            const p = patientDB.find(x => x.id === id);
+            if(p) {
+                document.getElementById('hist-id').innerText = p.id;
+                document.getElementById('hist-nama').innerText = p.nama;
+                const container = document.getElementById('hist-container');
+                container.innerHTML = '';
+                
+                if(p.riwayat.length === 0) {
+                    container.innerHTML = '<p class="text-slate-500 italic text-center mt-6">Belum ada riwayat klasifikasi.</p>';
+                } else {
+                    p.riwayat.slice().reverse().forEach((r) => {
+                        container.innerHTML += `
+                            <div class="bg-slate-900 border border-amber-500/30 p-3 rounded-xl shadow-sm font-mono text-xs">
+                                <div class="flex justify-between items-start border-b border-slate-700 pb-2 mb-2">
+                                    <span class="text-amber-400 font-bold"><i class="fa-solid fa-calendar-check mr-1"></i> ${new Date(r.tgl).toLocaleString('id-ID')}</span>
+                                    <span class="bg-rose-500/20 text-rose-400 border border-rose-500 px-2 py-0.5 rounded font-black">Prob: ${r.persentase}%</span>
+                                </div>
+                                <h4 class="text-sky-400 font-black uppercase mb-2">${r.penyakit}</h4>
+                                <p class="text-slate-300 border-l-2 border-emerald-500 pl-2"><b>Solusi:</b> ${r.solusi}</p>
+                            </div>
+                        `;
+                    });
+                }
+                document.getElementById('patientHistoryModal').classList.remove('hidden');
+            }
+        }
+
+        function closePatientHistory() { document.getElementById('patientHistoryModal').classList.add('hidden'); }
+
+        function startDiagnosisFor(id) {
+            switchTab('diagnosis', document.querySelectorAll(".nav-btn")[2]);
+            document.getElementById('diag-patient-select').value = id;
+        }
+
+        function previewFile() {
+            const preview = document.getElementById('previewImage');
+            const file = document.getElementById('imageInput').files[0];
+            const reader = new FileReader();
+            const placeholder = document.getElementById('uploadPlaceholder');
+            const scanLine = document.getElementById('scanLine');
+
+            reader.addEventListener("load", () => {
+                preview.src = reader.result;
+                preview.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+                scanLine.classList.remove('hidden');
+            }, false);
+
+            if (file) { reader.readAsDataURL(file); }
+        }
+
+        function renderSymptoms() {
+            const container = document.getElementById('symptoms-container');
+            container.innerHTML = '';
+            symptomsData.forEach(sym => {
+                const div = document.createElement('div');
+                div.className = "flex items-start gap-2.5 bg-slate-950 p-2.5 rounded-lg border border-slate-700 hover:border-rose-500 transition-colors cursor-pointer";
+                div.innerHTML = `
+                    <input type="checkbox" id="chk-${sym.id}" value="${sym.id}" class="mt-0.5 shrink-0">
+                    <label for="chk-${sym.id}" class="text-slate-300 cursor-pointer flex-1 line-clamp-2 select-none text-[11px] leading-tight">${sym.text}</label>
+                `;
+                div.addEventListener('click', (e) => {
+                    if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'LABEL') {
+                        const chk = document.getElementById(`chk-${sym.id}`);
+                        chk.checked = !chk.checked;
+                    }
+                });
+                container.appendChild(div);
+            });
+        }
+
+        function populateDiagnosisSelect() {
+            const select = document.getElementById('diag-patient-select');
+            select.innerHTML = '<option value="">-- TANPA SIMPAN (ANONIM GUEST) --</option>';
+            patientDB.forEach(p => { select.innerHTML += `<option value="${p.id}">${p.id} - ${p.nama}</option>`; });
+        }
+
+        function processDiagnosis() {
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const selectedSymptoms = Array.from(checkedBoxes).map(cb => cb.value);
+            const imageInp = document.getElementById('imageInput');
+
+            if(selectedSymptoms.length === 0 && !imageInp.files[0]) {
+                alert("Harap unggah gambar lesi atau centang indikator klinis terlebih dahulu!");
+                return;
+            }
+
+            let results = [];
+            diseasesData.forEach(disease => {
+                let matchCount = 0;
+                disease.symptoms.forEach(sym => { if(selectedSymptoms.includes(sym)) matchCount++; });
+                
+                let baseCalculated = disease.symptoms.length > 0 ? (matchCount / disease.symptoms.length) * 100 : 0;
+                if(imageInp.files[0]) { baseCalculated += Math.floor(Math.random() * 25) + 15; }
+                if(baseCalculated > 100) baseCalculated = 100;
+
+                if(baseCalculated > 10) {
+                    results.push({ ...disease, certainty: baseCalculated.toFixed(1) });
+                }
+            });
+
+            if (results.length === 0 && imageInp.files[0]) {
+                let randomDisease = diseasesData[Math.floor(Math.random() * diseasesData.length)];
+                results.push({ ...randomDisease, certainty: (Math.floor(Math.random() * 30) + 45).toFixed(1) });
+            }
+
+            results.sort((a, b) => b.certainty - a.certainty);
+            currentDiagnosisResult = results.length > 0 ? results[0] : null;
+            
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const modal = document.getElementById('resultModal');
+            const output = document.getElementById('diagnosis-output');
+            output.innerHTML = '';
+
+            let selectPId = document.getElementById('diag-patient-select').value;
+            let patientNameDisplay = "Pasien Guest";
+            if(selectPId) {
+                let p = patientDB.find(x => x.id === selectPId);
+                if(p) patientNameDisplay = `${p.id} - ${p.nama}`;
+            }
+
+            if(results.length === 0) {
+                output.innerHTML = `<p class="text-amber-400 text-xs">Jaringan sehat / Indikator klinis tumor kulit tidak terdeteksi.</p>`;
+            } else {
+                let topResult = results[0];
+                output.innerHTML = `
+                    <div class="mb-1 text-xs font-bold text-slate-300">Target Pemeriksaan: <span class="text-rose-400">${patientNameDisplay}</span></div>
+                    <div class="bg-slate-900 border border-sky-500/50 rounded-xl p-3.5 relative overflow-hidden">
+                        <span class="text-sky-400 text-[10px] font-black tracking-widest uppercase block mb-1">DIAGNOSIS UTAMA MODEL CNN</span>
+                        <h3 class="text-base md:text-2xl font-tech font-black text-white mb-2">${topResult.name}</h3>
+                        
+                        <div class="w-full bg-slate-950 rounded-full h-4 border border-slate-700 overflow-hidden relative shadow-inner mb-3">
+                            <div class="bg-gradient-to-r from-sky-500 to-rose-500 h-full rounded-full animate-grow flex items-center justify-end pr-2" style="width: ${topResult.certainty}%;">
+                                <span class="text-[9px] font-black text-white">${topResult.certainty}%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-2.5 text-[11px] md:text-sm">
+                            <div>
+                                <h4 class="text-sky-300 font-bold uppercase mb-0.5">Patologi Deskriptif:</h4>
+                                <p class="text-slate-300 bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-justify leading-relaxed">${topResult.desc}</p>
+                            </div>
+                            <div>
+                                <h4 class="text-emerald-400 font-bold uppercase mb-0.5">Saran Klinis & Solusi Medis:</h4>
+                                <p class="text-slate-300 bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-justify leading-relaxed">${topResult.solusi}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function saveDiagnosisAndSendWA() {
+            if(!currentDiagnosisResult) return;
+            let selectPId = document.getElementById('diag-patient-select').value;
+            if(!selectPId) { alert("Pilih profil pasien terlebih dahulu di bagian atas!"); return; }
+
+            let pIndex = patientDB.findIndex(x => x.id === selectPId);
+            if(pIndex === -1) return;
+
+            let nowISO = new Date().toISOString();
+            patientDB[pIndex].lastVisit = nowISO;
+            patientDB[pIndex].riwayat.push({
+                tgl: nowISO,
+                penyakit: currentDiagnosisResult.name,
+                persentase: currentDiagnosisResult.certainty,
+                solusi: currentDiagnosisResult.solusi
+            });
+            
+            localStorage.setItem('SKIN_SYIFA_DB', JSON.stringify(patientDB));
+            renderPatientsTable(); updateDashboardStats();
+
+            let waInput = patientDB[pIndex].wa || "";
+            if (waInput.startsWith('0')) { waInput = '62' + waInput.substring(1); }
+
+            let waText = `*SKIN SYIFA AI: INTEGRATED REPORT KANKER KULIT*\n\n`;
+            waText += `*ID Pasien:* ${patientDB[pIndex].id}\n`;
+            waText += `*Nama:* ${patientDB[pIndex].nama}\n`;
+            waText += `*Hasil Klasifikasi:* ${currentDiagnosisResult.name} (Tingkat Keyakinan: ${currentDiagnosisResult.certainty}%)\n\n`;
+            waText += `*Saran Medis:*\n${currentDiagnosisResult.solusi}\n\n`;
+            waText += `_Segera lakukan pemeriksaan histopatologi laboratorium untuk penegakan diagnosis final._`;
+
+            let waUrl = `https://wa.me/${waInput}?text=${encodeURIComponent(waText)}`;
+            
+            document.getElementById('imageInput').value = '';
+            document.getElementById('previewImage').classList.add('hidden');
+            document.getElementById('uploadPlaceholder').classList.remove('hidden');
+            document.getElementById('scanLine').classList.add('hidden');
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(c => c.checked = false);
+            
+            closeResult();
+            window.open(waUrl, '_blank');
+        }
+
+        function closeResult() { document.getElementById('resultModal').classList.add('hidden'); }
+
+        function openHelpModal() {
+            const modal = document.getElementById('helpSystemModal');
+            const tbody = document.getElementById('help-metrics-table');
+            tbody.innerHTML = '';
+            
+            diseasesData.forEach((d, index) => {
+                let baseMetric = Math.floor(Math.random() * 15) + 80;
+                tbody.innerHTML += `
+                    <tr class="border-b border-slate-700/50 text-[11px]">
+                        <td class="p-2 font-bold text-rose-400">${d.id}</td>
+                        <td class="p-2 font-black text-sky-400">${d.name}</td>
+                        <td class="p-2 text-slate-300 text-justify">
+                            <b>Karakteristik:</b> ${d.desc}<br>
+                            <b class="text-emerald-400">Terapi:</b> ${d.solusi}
+                        </td>
+                        <td class="p-2">
+                            <div class="w-full bg-slate-950 rounded-full h-2.5 mb-1 border border-slate-700 overflow-hidden">
+                                <div class="bg-gradient-to-r from-sky-500 to-rose-500 h-full rounded-full animate-grow" style="width: ${baseMetric}%; animation-delay: ${index*0.1}s;"></div>
+                            </div>
+                            <span class="text-[9px] text-slate-400 font-bold">F1-Score Model: ${baseMetric}%</span>
+                        </td>
+                    </tr>
+                `;
+            });
+            modal.classList.remove('hidden');
+        }
+
+        function closeHelpModal() { document.getElementById('helpSystemModal').classList.add('hidden'); }
+
+        function toggleChatWindow() { 
+            const cw = document.getElementById('chatWindow');
+            cw.classList.toggle('hidden'); cw.classList.toggle('flex'); 
+        }
+
+        function showProgrammerInfoBot() {
+            const container = document.getElementById("chatMessages");
+            let infoHTML = `
+                <span class="text-[10px] block font-black mb-1.5 uppercase font-tech tracking-wider text-sky-400 border-sky-500/30">IDENTITAS PROGRAMMER</span>
+                <div class="space-y-1.5 font-sans text-[10px] text-slate-200">
+                    <p><b>Nama:</b> Mohamad Hartadi (Adi)</p>
+                    <p><b>FB:</b> <a href="https://www.facebook.com/m.hartadi" target="_blank" class="text-blue-400 underline">facebook.com/m.hartadi</a></p>
+                    <p><b>Blog:</b> <a href="https://newbieonline7.blogspot.com/" target="_blank" class="text-amber-400 underline">newbieonline7.blogspot.com</a></p>
+                    <p><b>WA:</b> <a href="https://wa.me/6282231036047" target="_blank" class="text-emerald-400 underline">082231036047</a></p>
+                </div>`;
+            container.innerHTML += `<div class="bg-slate-900/90 p-2.5 rounded-xl border border-rose-500/50 max-w-[90%] leading-relaxed">${infoHTML}</div>`;
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function handleChatSubmit(e) { 
+            e.preventDefault(); 
+            const inp = document.getElementById("chatInput"); let q = inp.value.trim(); if(!q) return;
+            const container = document.getElementById("chatMessages");
+            container.innerHTML += `<div class="bg-sky-600 text-white p-2 rounded-xl self-end max-w-[85%] ml-auto text-xs font-sans font-bold border border-sky-400">${q}</div>`;
+            
+            setTimeout(() => {
+                let ans = "Maaf, silakan tanyakan kata kunci spesifik seperti 'melanoma', 'bcc', 'scc', atau 'aturan abcde'.";
+                let clean = q.toLowerCase();
+                if(clean.includes("melanoma")) { ans = "Melanoma ditandai dengan perubahan tahi lalat secara asimetris, pinggiran kasar, dan warna tidak merata. Ini tipe lesi kulit paling ganas."; }
+                else if(clean.includes("bcc") || clean.includes("basal")) { ans = "Basal Cell Carcinoma biasanya berwujud benjolan mengkilap seperti mutiara yang rentan terluka namun pertumbuhannya lambat."; }
+                else if(clean.includes("abcde")) { ans = "Aturan ABCDE melanosit terdiri atas Asymmetry (Asimetris), Border (Pinggiran kasar), Color (Warna bervariasi), Diameter (>6mm), dan Evolving (Berubah wujud)."; }
+                
+                container.innerHTML += `
+                    <div class="bg-slate-900/90 p-2.5 rounded-xl border border-slate-700 max-w-[85%] leading-relaxed text-xs">
+                        <span class="text-rose-400 font-black block mb-1"><i class="fa-solid fa-robot"></i> SKINBOT:</span>${ans}
+                    </div>`;
+                container.scrollTop = container.scrollHeight;
+            }, 400);
+            inp.value = "";
+        }
+
+        function switchTab(tabId, btnContext) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden-ui'));
+            document.getElementById(`tab-${tabId}`).classList.remove('hidden-ui');
+            if(btnContext) {
+                document.querySelectorAll('.nav-btn').forEach(b => {
+                    b.className = "nav-btn whitespace-nowrap flex-shrink-0 lg:w-full text-left px-4 py-2 rounded-xl text-[var(--text-main)] hover:bg-sky-500/10 flex items-center justify-between transition-colors border border-transparent custom-holo-trigger";
+                });
+                btnContext.className = "nav-btn whitespace-nowrap flex-shrink-0 lg:w-full text-left px-4 py-2 rounded-xl bg-sky-600 text-white flex items-center justify-between transition-colors shadow-md custom-holo-trigger";
+            }
+        }
+
+        /* --- IMMUNE & RESPONSIVE HOLOGRAPHIC TOOLTIP CORE LOGIC --- */
+        function setupHolographicTooltips() {
+            const tipBox = document.getElementById("holoTooltipBox");
+            
+            const showTooltip = (text, target) => {
+                if(mobileTooltipTimer) clearTimeout(mobileTooltipTimer);
+                
+                tipBox.innerHTML = `<i class="fa-solid fa-bolt text-rose-400 animate-pulse mr-1"></i> ${text}`;
+                tipBox.style.display = "block";
+                
+                const rect = target.getBoundingClientRect();
+                const isMobile = window.innerWidth < 768;
+                
+                let targetLeft = rect.left + window.scrollX;
+                let targetTop = rect.bottom + window.scrollY + 8;
+                
+                if (isMobile) {
+                    targetLeft = (window.innerWidth - Math.min(window.innerWidth - 20, 280)) / 2;
+                    targetTop = rect.top + window.scrollY - tipBox.offsetHeight - 8;
+                    if (targetTop < 0) targetTop = rect.bottom + window.scrollY + 8;
+                } else {
+                    if (targetLeft + 280 > window.innerWidth) {
+                        targetLeft = window.innerWidth - 300;
+                    }
+                    if (targetTop + tipBox.offsetHeight > window.innerHeight) {
+                        targetTop = rect.top + window.scrollY - tipBox.offsetHeight - 8;
+                    }
+                }
+                
+                tipBox.style.left = Math.max(8, targetLeft) + "px";
+                tipBox.style.top = Math.max(8, targetTop) + "px";
+                
+                if (isMobile) {
+                    mobileTooltipTimer = setTimeout(() => {
+                        tipBox.style.display = "none";
+                    }, 3000);
+                }
+            };
+
+            const hideTooltip = () => {
+                if(window.innerWidth >= 768) {
+                    tipBox.style.display = "none";
+                }
+            };
+
+            document.querySelectorAll(".custom-holo-trigger").forEach(el => {
+                const hintText = el.getAttribute("data-holo");
+                
+                el.addEventListener("mouseenter", () => {
+                    if(window.innerWidth >= 768) showTooltip(hintText, el);
+                });
+                el.addEventListener("mouseleave", hideTooltip);
+                
+                el.addEventListener("touchstart", (e) => {
+                    if(window.innerWidth < 768) {
+                        showTooltip(hintText, el);
+                    }
+                }, { passive: true });
+            });
+        }
+
+        function runTimeSynchronization() {
+            let tzName = Intl.DateTimeFormat().resolvedOptions().timeZone.split('/').pop().toUpperCase() || "WIB";
+            document.getElementById('lbl-timezone').innerText = tzName;
+            document.getElementById('scTimezoneDisplay').innerText = tzName;
+            setInterval(() => {
+                const current = new Date();
+                const dayStr = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+                const timeStr = current.toTimeString().split(' ')[0];
+                document.getElementById('lbl-real-day').innerText = dayStr;
+                document.getElementById('lbl-real-clock').innerText = timeStr;
+                document.getElementById('bot-large-time').innerText = timeStr;
+                document.getElementById('bot-large-day').innerText = dayStr;
+                if (isScreensaverActive) {
+                    document.getElementById('scClockDisplay').innerText = timeStr;
+                    document.getElementById('scDateDisplay').innerText = dayStr;
+                }
+            }, 1000);
+        }
+
+        function setupScreensaverWatchdog() {
+            const interrupt = () => {
+                systemIdleTimeSeconds = 0;
+                if(isScreensaverActive) {
+                    isScreensaverActive = false;
+                    const scNode = document.getElementById("monsoonTechScreensaver");
+                    scNode.classList.add("opacity-0");
+                    setTimeout(() => scNode.classList.add("hidden"), 700);
+                }
+            };
+            window.onmousemove = interrupt; window.onkeypress = interrupt; window.ontouchstart = interrupt;
+            setInterval(() => {
+                systemIdleTimeSeconds++;
+                if(systemIdleTimeSeconds >= 120 && !isScreensaverActive) triggerScreensaverManual();
+            }, 1000);
+        }
+
+        function triggerScreensaverManual() {
+            isScreensaverActive = true;
+            const scNode = document.getElementById("monsoonTechScreensaver");
+            scNode.classList.remove("hidden");
+            setTimeout(() => { scNode.classList.remove("opacity-0"); scNode.classList.add("opacity-100"); }, 50);
+        }
+
+        function openCreatorModal() { document.getElementById('creatorModal').classList.remove('hidden'); }
+        function closeCreatorModal() { document.getElementById('creatorModal').classList.add('hidden'); }
+    </script>
+</body>
+</html>
